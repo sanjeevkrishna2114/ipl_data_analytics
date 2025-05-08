@@ -20,28 +20,26 @@ This is a comprehensive application for analyzing Indian Premier League (IPL) da
 
 ## Project Structure
 
-\`\`\`
 ipl-data-analysis/
-├── app/                    # Next.js app directory
-│   ├── dashboard/          # Dashboard pages
-│   ├── layout.tsx          # Root layout
-│   └── page.tsx            # Home/login page
-├── components/             # React components
-│   ├── ui/                 # UI components (shadcn/ui)
-│   ├── dashboard-header.tsx
-│   ├── login-form.tsx
-│   ├── player-comparison.tsx
-│   ├── player-stats.tsx
-│   ├── team-owner-panel.tsx
-│   └── ...
-├── lib/                    # Utility functions
-│   ├── api.ts              # API client functions
-│   └── utils.ts            # Helper utilities
-├── public/                 # Static assets
-├── app.py                  # Flask backend application
-├── package.json            # Frontend dependencies
-└── README.md               # Project documentation
-\`\`\`
+├── app/ # Next.js app directory
+│ ├── dashboard/ # Dashboard pages
+│ │ ├── layout.tsx # Root layout
+│ │ └── page.tsx # Home/login page
+│ ├── components/ # React components
+│ │ ├── ui/ # UI components (shadcn/ui)
+│ │ ├── dashboard-header.tsx # Dashboard header component
+│ │ ├── login-form.tsx # Login form component
+│ │ ├── player-comparison.tsx # Player comparison component
+│ │ ├── player-stats.tsx # Player stats component
+│ │ ├── team-owner-panel.tsx # Team owner panel component
+│ │ └── ... # Additional components
+│ ├── lib/ # Utility functions
+│ │ ├── api.ts # API client functions
+│ │ └── utils.ts # Helper utilities
+│ ├── public/ # Static assets (images, etc.)
+├── app.py # Flask backend application
+├── package.json # Frontend dependencies
+└── README.md # Project documentation
 
 ## Setup Instructions
 
