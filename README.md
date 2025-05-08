@@ -211,24 +211,6 @@ If you encounter API connection issues:
 3. Verify that CORS is properly configured in the Flask app
 4. Check the browser console for specific error messages
 
-### Database Connection Issues
-
-If the backend cannot connect to the database:
-
-1. Verify MySQL is running
-2. Check the database credentials in `app.py`
-3. Ensure the database and tables exist
-4. Check MySQL user permissions
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 
