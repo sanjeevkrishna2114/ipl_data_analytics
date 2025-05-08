@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -25,6 +25,23 @@ def query_db(query, args=(), one=False):
 
     return (result[0] if result else None) if one else result
 
+# Function to execute MySQL insert/update queries
+def execute_db(query, args=()):
+    conn = mysql.connector.connect(**DB_CONFIG)
+    cursor = conn.cursor()
+    try:
+        cursor.execute(query, args)
+        conn.commit()
+        last_id = cursor.lastrowid
+        cursor.close()
+        conn.close()
+        return last_id
+    except Exception as e:
+        conn.rollback()
+        cursor.close()
+        conn.close()
+        raise e
+
 # Route to get all players
 @app.route("/api/players")
 def get_players():
@@ -43,6 +60,38 @@ def get_players():
             "dob": str(row[8])  # Convert DATE to string for JSON serialization
         } for row in data
     ])
+
+# Route to add a new target player
+@app.route("/api/players/add", methods=["POST"])
+def add_player():
+    data = request.json
+    
+    # Validate required fields
+    required_fields = ["name", "nationality", "role", "baseBid"]
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"error": f"Missing required field: {field}"}), 400
+    
+    try:
+        # Insert the new player into the Player table
+        query = """
+        INSERT INTO Player (name, nationality, playing_role, base_bid) 
+        VALUES (%s, %s, %s, %s)
+        """
+        
+        player_id = execute_db(
+            query, 
+            (data["name"], data["nationality"], data["role"], data["baseBid"])
+        )
+        
+        return jsonify({
+            "success": True,
+            "message": "Player added successfully",
+            "player_id": player_id
+        }), 201
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # Route to get batting stats
 @app.route("/api/players/batting/<int:player_id>")
@@ -103,6 +152,9 @@ def get_teams():
         for row in data
     ])
 
+@app.route("/")
+def home():
+    return "🚀 IPL API is up!"
+
 if __name__ == "__main__":
     app.run(debug=True)
-
